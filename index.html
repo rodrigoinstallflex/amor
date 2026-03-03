@@ -3,153 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de 75 Imagens</title>
+    <title>Minha Galeria de Imagens</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --selected-color: #2ecc71;
-            --bg-color: #f4f4f9;
+            --primary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
             margin: 0;
             padding: 20px;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Painel de Controle Fixo */
+        .controls-wrapper {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
-        h1 { color: #333; }
-
         .controls {
-            margin-bottom: 20px;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
         }
 
         input {
-            padding: 10px;
+            padding: 12px 15px;
             border: 2px solid #ddd;
-            border-radius: 4px;
-            width: 250px;
+            border-radius: 8px;
+            width: 200px;
             font-size: 16px;
+            transition: border-color 0.3s;
         }
 
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-clear {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .btn-clear:hover { opacity: 0.8; }
+
+        .counter-badge {
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Grid de Imagens */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            width: 100%;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
             max-width: 1200px;
+            margin: 0 auto;
         }
 
         .image-card {
-            background: white;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 3px solid transparent;
             position: relative;
         }
 
         .image-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
         }
 
         .image-card.selected {
-            border-color: var(--selected-color);
-            background-color: #e8f8f0;
+            border-color: var(--success);
+            background-color: #f0fff4;
         }
 
         .image-card img {
             width: 100%;
-            height: 120px;
+            height: 150px;
             object-fit: cover;
             display: block;
+            background: #eee; /* Placeholder enquanto carrega */
         }
 
         .image-number {
             text-align: center;
-            padding: 8px;
+            padding: 10px;
             font-weight: bold;
             font-size: 14px;
-            color: #555;
+            border-top: 1px solid #eee;
         }
 
-        /* Badge de seleção */
-        .image-card.selected::after {
+        /* Checkmark de Seleção */
+        .image-card.selected::before {
             content: '✓';
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--selected-color);
+            top: 10px;
+            right: 10px;
+            background: var(--success);
             color: white;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            z-index: 10;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Destaque na busca */
+        .highlight-search {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--primary) !important;
+            border-color: var(--primary) !important;
+            z-index: 50;
+        }
+
+        @media (max-width: 480px) {
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+            input { width: 140px; }
         }
     </style>
 </head>
 <body>
 
-    <h1>Galeria Interativa (1-75)</h1>
-
-    <div class="controls">
-        <input type="number" id="searchNumber" placeholder="Digite um número (1-75)..." min="1" max="75">
+    <div class="header">
+        <h1>Galeria de Fotos</h1>
     </div>
 
-    <div class="grid-container" id="gallery">
+    <div class="controls-wrapper">
+        <div class="controls">
+            <input type="number" id="searchNumber" placeholder="Ir para nº..." min="1" max="75">
+            <button class="btn-clear" onclick="clearAll()">Limpar Tudo</button>
+            <div class="counter-badge">Selecionados: <span id="count">0</span></div>
         </div>
+    </div>
+
+    <div class="grid-container" id="gallery"></div>
 
     <script>
         const gallery = document.getElementById('gallery');
         const searchInput = document.getElementById('searchNumber');
+        const countDisplay = document.getElementById('count');
+        
+        // --- CONFIGURAÇÃO ---
+        const TOTAL_IMAGES = 75;
+        const FOLDER_PATH = ""; // Deixe vazio se as fotos estiverem na mesma pasta do HTML
+        const EXTENSION = "jpg"; // Altere para png se necessário
+        // --------------------
 
         // Gera as 75 imagens
-        for (let i = 1; i <= 75; i++) {
+        for (let i = 1; i <= TOTAL_IMAGES; i++) {
             const card = document.createElement('div');
             card.className = 'image-card';
-            card.id = img-${i};
-            card.onclick = () => card.classList.toggle('selected');
+            card.id = `img-${i}`; // ID corrigido
+            
+            card.onclick = () => {
+                card.classList.toggle('selected');
+                updateCounter();
+            };
 
-            // Usando o Lorem Picsum para imagens de exemplo
             card.innerHTML = `
-                <img src="https://picsum.photos/200?random=${i}" alt="Imagem ${i}">
+                <img src="${FOLDER_PATH}${i}.${EXTENSION}" alt="Foto ${i}" loading="lazy" onerror="this.src='https://via.placeholder.com/150?text=Erro+Foto+${i}'">
                 <div class="image-number">Nº ${i}</div>
             `;
             
             gallery.appendChild(card);
         }
 
-        // Lógica de busca/seleção por número
+        // Lógica de busca
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value;
             
-            // Remove destaque de todos
-            document.querySelectorAll('.image-card').forEach(c => c.style.boxShadow = 'none');
+            // Limpa destaques anteriores
+            document.querySelectorAll('.image-card').forEach(c => c.classList.remove('highlight-search'));
 
-            if (val >= 1 && val <= 75) {
-                const target = document.getElementById(img-${val});
+            if (val >= 1 && val <= TOTAL_IMAGES) {
+                const target = document.getElementById(`img-${val}`);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    target.style.boxShadow = '0 0 15px #3498db';
-                    // Opcional: target.classList.add('selected'); // Se quiser que selecione ao digitar
+                    target.classList.add('highlight-search');
                 }
             }
         });
+
+        // Atualiza contador
+        function updateCounter() {
+            const selectedCount = document.querySelectorAll('.image-card.selected').length;
+            countDisplay.innerText = selectedCount;
+        }
+
+        // Limpa todas as seleções
+        function clearAll() {
+            if(confirm("Deseja desmarcar todas as imagens?")) {
+                document.querySelectorAll('.image-card').forEach(c => c.classList.remove('selected'));
+                updateCounter();
+            }
+        }
     </script>
 </body>
 </html>
