@@ -3,27 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso em Vídeo</title>
-    <link rel="stylesheet" href="estilos/style.css">
+    <title>Galeria de 75 Imagens</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --selected-color: #2ecc71;
+            --bg-color: #f4f4f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { color: #333; }
+
+        .controls {
+            margin-bottom: 20px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            font-size: 16px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-card.selected {
+            border-color: var(--selected-color);
+            background-color: #e8f8f0;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-number {
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Badge de seleção */
+        .image-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--selected-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <main>
-        <header>
-            <h1>Cursos Grátis</h1>
-            <img src="imagens/curso-em-video-cor.png" alt="Curso em Vídeo">
-        </header>
-        <article>
-            <h2>Curso de HTML5 com CSS3</h2>
-            <img class="lado" src="imagens/curso-html-css.png" alt="Curso HTML">
-            <p>A <abbr title="HyperText Markup Language">HTML</abbr> é uma linguagem de marcação para a criação de sites. Atualmente na versão 5, ela usa a semântica dos elementos para criar o conteúdo de uma página Web. Com as <abbr title="Cascading Style Sheets">CSS</abbr>, criamos as configurações visuais que um site vai ter.</p>
-            <p><a href="curso-html.html">Acesse o curso de HTML5</a></p>
-        </article>
-        <article>
-            <h2>Curso de JavaScript</h2>
-            <img class="lado" src="imagens/curso-javascript.png" alt="Curso JS">
-            <p><abbr title="JavaScript">JavaScript</abbr> é uma linguagem de script criada para aumentar a interatividade entre um site e seus visitantes. Os códigos em JS são executados dentro do navegador e dão acesso aos elementos HTML por meio do <abbr title="Document Object Model">DOM</abbr>.</p>
-            <p><a href="curso-js.html">Acesse o curso de JavaScript</a></p>
-        </article>
-    </main>
+
+    <h1>Galeria Interativa (1-75)</h1>
+
+    <div class="controls">
+        <input type="number" id="searchNumber" placeholder="Digite um número (1-75)..." min="1" max="75">
+    </div>
+
+    <div class="grid-container" id="gallery">
+        </div>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        const searchInput = document.getElementById('searchNumber');
+
+        // Gera as 75 imagens
+        for (let i = 1; i <= 75; i++) {
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            card.id = img-${i};
+            card.onclick = () => card.classList.toggle('selected');
+
+            // Usando o Lorem Picsum para imagens de exemplo
+            card.innerHTML = `
+                <img src="https://picsum.photos/200?random=${i}" alt="Imagem ${i}">
+                <div class="image-number">Nº ${i}</div>
+            `;
+            
+            gallery.appendChild(card);
+        }
+
+        // Lógica de busca/seleção por número
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            
+            // Remove destaque de todos
+            document.querySelectorAll('.image-card').forEach(c => c.style.boxShadow = 'none');
+
+            if (val >= 1 && val <= 75) {
+                const target = document.getElementById(img-${val});
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    target.style.boxShadow = '0 0 15px #3498db';
+                    // Opcional: target.classList.add('selected'); // Se quiser que selecione ao digitar
+                }
+            }
+        });
+    </script>
 </body>
 </html>
