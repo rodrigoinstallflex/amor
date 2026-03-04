@@ -1,202 +1,172 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escala de Ministros - Quaresma 2026</title>
+    <title>Installflex - Serviços e Instalações</title>
+    
+    <!-- Importação do Tailwind CSS para estilos rápidos e responsivos -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Importação do Font Awesome para os ícones (WhatsApp, Instagram, Email) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Importação da fonte do Google (Poppins) para um aspeto moderno -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Configuração de cores personalizadas no Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'installflex-dark': '#1C1E1C',
+                        'installflex-green': '#B6E54E',
+                        'installflex-green-dark': '#92BA3B'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;600&display=swap');
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: white;
+        /* Estilos adicionais específicos */
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
         }
 
-        h1 {
-            font-family: 'Cinzel', serif;
+        /* Simulação do logótipo "IF" em marca de água */
+        .logo-watermark {
+            font-size: 10rem;
+            line-height: 1;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.1);
+            letter-spacing: -15px;
+            font-style: italic;
+            user-select: none;
         }
 
-        @media print {
-            @page {
-                size: A4 landscape;
-                margin: 0.5cm;
+        /* Traço vertical entre as colunas no ecrã de computador */
+        @media (min-width: 768px) {
+            .column-divider {
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
             }
-            body {
-                background-color: white;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .no-print { display: none !important; }
-            .border-liturgico { border: 2px solid #4c1d95 !important; }
         }
-
-        .bg-quaresma { background-color: #4c1d95 !important; } /* Roxo Litúrgico */
-        .text-quaresma { color: #4c1d95 !important; }
-        .data-header { background-color: #f5f3ff !important; border-bottom: 2px solid #4c1d95 !important; }
-        
-        .name-cell { 
-            padding: 8px 4px; 
-            border-bottom: 1px solid #ddd6fe; 
-            font-size: 11px;
-            height: 42px;
-            vertical-align: middle;
-        }
-        
-        .tag-dom { color: #7e22ce; font-weight: 700; } /* Violeta mais vivo para Domingos */
-        .tag-qui { color: #5b21b6; font-weight: 700; }
-        .tag-ter { color: #6d28d9; font-weight: 700; }
-        
-        .duduca-style { color: #4c1d95; font-weight: 800; text-decoration: underline; }
     </style>
 </head>
-<body class="p-0 md:p-4">
+<body class="antialiased text-gray-800">
 
-    <div class="max-w-full mx-auto bg-white border-2 border-purple-900 border-liturgico shadow-lg">
-        <!-- Cabeçalho Litúrgico -->
-        <div class="bg-purple-900 p-4 text-white flex justify-between items-center relative overflow-hidden">
-            <!-- Icone Cruz Esquerda -->
-            <div class="opacity-20 absolute -left-4 top-0">
-                <svg width="120" height="120" viewBox="0 0 24 24" fill="white"><path d="M11 2h2v5h5v2h-5v13h-2v-13h-5v-2h5v-5z"/></svg>
-            </div>
+    <!-- Contentor Principal (Cartão) -->
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden relative">
+        
+        <!-- Secção Superior (Escura) -->
+        <div class="bg-installflex-dark text-white p-8 md:p-12 pb-16 md:pb-20">
             
-            <div class="z-10 text-center w-full">
-                <h1 class="text-2xl font-bold tracking-widest uppercase">Escala de Ministros - Tempo da Quaresma</h1>
-                <p class="text-xs text-purple-200 font-light tracking-widest mt-1 italic">"Convertei-vos e crede no Evangelho"</p>
-                <p class="text-[10px] text-white mt-2 font-semibold">MARÇO 2026</p>
-            </div>
-
-            <button onclick="window.print()" class="no-print absolute right-4 top-4 bg-white text-purple-900 px-4 py-2 rounded text-xs font-bold shadow-md hover:bg-purple-50 transition">
-                IMPRIMIR PDF
-            </button>
-        </div>
-
-        <!-- Tabela -->
-        <div class="overflow-x-auto">
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="data-header text-center">
-                        <th class="p-2 border-r border-purple-200"><span class="tag-qui text-sm">05/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Qui</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-dom text-sm">08/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Dom</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-ter text-sm">10/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Ter</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-qui text-sm">12/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Qui</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-dom text-sm">15/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Dom</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-ter text-sm">17/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Ter</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-qui text-sm">19/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Qui</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-dom text-sm">22/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Dom</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-ter text-sm">24/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Ter</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-qui text-sm">26/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Qui</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-dom text-sm">29/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Dom</span></th>
-                        <th class="p-2 border-r border-purple-200"><span class="tag-ter text-sm">31/03</span><br><span class="text-[9px] uppercase opacity-70 italic">Ter</span></th>
-                    </tr>
-                </thead>
-                <tbody class="text-center bg-white">
-                    <tr>
-                        <td class="name-cell font-bold text-quaresma">Tati</td>
-                        <td class="name-cell">Ricardo</td>
-                        <td class="name-cell">Maria</td>
-                        <td class="name-cell font-bold text-quaresma">Maria</td>
-                        <td class="name-cell">Ricardo</td>
-                        <td class="name-cell">Maria</td>
-                        <td class="name-cell font-bold text-quaresma">Maria</td>
-                        <td class="name-cell font-bold text-quaresma">Bruna</td>
-                        <td class="name-cell">Nagib</td>
-                        <td class="name-cell border-r border-purple-100">Nagib</td>
-                        <td class="name-cell font-bold text-quaresma">Tati</td>
-                        <td class="name-cell">Maria</td>
-                    </tr>
-                    <tr>
-                        <td class="name-cell">Maria</td>
-                        <td class="name-cell">Neirose</td>
-                        <td class="name-cell">Nagib</td>
-                        <td class="name-cell">Nagib</td>
-                        <td class="name-cell">Neirose</td>
-                        <td class="name-cell">Nair</td>
-                        <td class="name-cell">Nagib</td>
-                        <td class="name-cell font-bold text-quaresma">Carol</td>
-                        <td class="name-cell">Nair</td>
-                        <td class="name-cell border-r border-purple-100">Santa</td>
-                        <td class="name-cell">Neirose</td>
-                        <td class="name-cell">Nagib</td>
-                    </tr>
-                    <tr>
-                        <td class="name-cell">Nagib</td>
-                        <td class="name-cell">Fátima</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Santa</td>
-                        <td class="name-cell">Fátima</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Santa</td>
-                        <td class="name-cell font-bold text-quaresma">Leide</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell border-r border-purple-100">Lucimari</td>
-                        <td class="name-cell">Fátima</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                    </tr>
-                    <tr>
-                        <td class="name-cell">Santa</td>
-                        <td class="name-cell">Carmem</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Lucimari</td>
-                        <td class="name-cell duduca-style">Duduca</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Lucimari</td>
-                        <td class="name-cell">Ricardo</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell border-r border-purple-100">Carmem</td>
-                        <td class="name-cell duduca-style">Duduca</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                    </tr>
-                    <tr>
-                        <td class="name-cell">Lucimari</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Carmem</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Luzia</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell border-r border-purple-100">Cátia</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                    </tr>
-                    <tr>
-                        <td class="name-cell">Dina</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Cátia</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell">Dina</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell border-r border-purple-100">Luzia</td>
-                        <td class="name-cell opacity-30 italic">vago</td>
-                        <td class="name-cell opacity-30 italic">Vago</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Rodapé Litúrgico -->
-        <div class="p-4 bg-purple-50 border-t-2 border-purple-900 text-[10px] text-purple-900">
-            <div class="grid grid-cols-3 gap-4 items-center">
-                <div>
-                    <p class="font-bold uppercase mb-1"></p>
-                    <p></p>
-                    <p></p>
+            <!-- Grelha de Serviços -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 text-center">
+                
+                <!-- Serviço 1: Ar-Condicionado -->
+                <div class="column-divider md:pr-8 flex flex-col items-center">
+                    <h2 class="text-installflex-green text-xl md:text-2xl font-semibold mb-4 leading-tight">
+                        Ar-Condicionado<br>e Higienização
+                    </h2>
+                    <p class="text-gray-300 text-sm md:text-base font-light">
+                        A sua saúde e das pessoas que estão consigo são essenciais, por isto mantenha a manutenção periódica, com limpeza e higienização dos seus ares condicionados.
+                    </p>
                 </div>
-                <div class="text-center opacity-50">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" class="mx-auto"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+
+                <!-- Serviço 2: Segurança -->
+                <div class="column-divider md:px-8 flex flex-col items-center border-t md:border-t-0 border-white/20 pt-8 md:pt-0">
+                    <h2 class="text-installflex-green text-xl md:text-2xl font-semibold mb-4 leading-tight">
+                        Segurança<br>Eletrônica
+                    </h2>
+                    <p class="text-gray-300 text-sm md:text-base font-light">
+                        Instalação e Manutenção em sistemas de Cerca Elétrica, Alarmes, Câmeras e muito mais! Dispomos de Produtos para a proteção e segurança eletrônica de seu imóvel!
+                    </p>
                 </div>
-                <div class="text-right">
-                    <p></p>
-                    <p></p>
-                    <p class="mt-1 italic font-semibold">Paróquia Santa Teresinha do Menino Jesus - 2026</p>
+
+                <!-- Serviço 3: Energia Solar -->
+                <div class="md:pl-8 flex flex-col items-center border-t md:border-t-0 border-white/20 pt-8 md:pt-0">
+                    <h2 class="text-installflex-green text-xl md:text-2xl font-semibold mb-4 leading-tight">
+                        Geração de<br>Energia Solar
+                    </h2>
+                    <p class="text-gray-300 text-sm md:text-base font-light">
+                        Reduzir sua conta em até 90%, e se permitir aumentar consumo com baixíssimo gasto! Além disso seu imóvel é mais valorizado e terá energia limpa e sustentável!
+                    </p>
                 </div>
             </div>
+
+            <!-- Texto de Abrangência -->
+            <div class="mt-12 text-center">
+                <p class="text-installflex-green text-lg md:text-xl font-medium tracking-wide">
+                    Atuamos em todo o território nacional!
+                </p>
+            </div>
         </div>
+
+        <!-- Etiqueta "Fale Conosco" (Sobreposta) -->
+        <div class="absolute left-8 md:left-12 top-[calc(100%-14rem)] md:top-[calc(100%-13.5rem)] lg:top-[calc(100%-12rem)] z-10 transform -translate-y-1/2 hidden md:block">
+             <!-- Visível apenas em ecrãs maiores para não quebrar o layout mobile -->
+        </div>
+
+        <!-- Secção Inferior (Verde) -->
+        <div class="bg-installflex-green p-8 md:p-12 relative flex flex-col-reverse md:flex-row justify-between items-center md:items-stretch">
+            
+            <!-- Etiqueta "FALE CONOSCO!" posicionada na divisão das secções -->
+            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 md:-translate-x-0 md:left-12 bg-installflex-dark px-6 py-2 rounded-full shadow-lg border-2 border-installflex-dark">
+                <span class="text-installflex-green font-bold text-lg tracking-wider">FALE CONOSCO!</span>
+            </div>
+
+            <!-- Informações de Contacto -->
+            <div class="flex flex-col gap-4 mt-8 md:mt-4 z-10 w-full md:w-auto">
+                
+                <!-- WhatsApp -->
+                <a href="https://wa.me/5548996412221" target="_blank" class="flex items-center gap-4 text-installflex-dark hover:text-black transition-colors duration-300 group">
+                    <div class="bg-white rounded-full p-2 shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-whatsapp text-green-500 text-2xl w-8 text-center"></i>
+                    </div>
+                    <span class="text-xl md:text-3xl font-bold tracking-tight">(48) 99641.2221</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/rodrigo.installflex" target="_blank" class="flex items-center gap-4 text-installflex-dark hover:text-black transition-colors duration-300 group">
+                    <div class="bg-white rounded-full p-2 shadow-sm group-hover:scale-110 transition-transform flex items-center justify-center">
+                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" class="w-8 h-8">
+                    </div>
+                    <span class="text-lg md:text-2xl font-medium">@rodrigo.installflex</span>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:rodrigo.installflex@gmail.com" class="flex items-center gap-4 text-installflex-dark hover:text-black transition-colors duration-300 group">
+                    <div class="bg-white rounded-full p-2 shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-regular fa-envelope text-red-500 text-xl w-8 text-center"></i>
+                    </div>
+                    <span class="text-base md:text-2xl font-medium">rodrigo.installflex@gmail.com</span>
+                </a>
+            </div>
+
+            <!-- Logótipo Marca de Água (Direita) -->
+            <div class="mt-8 md:mt-0 md:absolute md:right-12 md:bottom-2 flex items-end justify-end opacity-40">
+                <div class="logo-watermark">
+                    I<span style="margin-left: -20px;">F</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Rodapé de Identificação (CNPJ) -->
+    <div class="mt-6 text-center text-gray-500 text-sm font-medium">
+        Empresa Installflex &bull; CNPJ: 12.574.514/0001-30
     </div>
 
 </body>
