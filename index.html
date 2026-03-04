@@ -1,155 +1,28 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+[00:45, 04/03/2026] Rodrigo Installflex Servicos e Soluções: <!DOCTYPE html>
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria de 75 Imagens</title>
+    <title>Escala de Ministros - Quaresma 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-color: #3498db;
-            --selected-color: #2ecc71;
-            --bg-color: #f4f4f9;
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;600&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: white;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        h1 {
+            font-family: 'Cinzel', serif;
         }
 
-        h1 { color: #333; }
-
-        .controls {
-            margin-bottom: 20px;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        input {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            width: 250px;
-            font-size: 16px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .image-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            border: 3px solid transparent;
-            position: relative;
-        }
-
-        .image-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .image-card.selected {
-            border-color: var(--selected-color);
-            background-color: #e8f8f0;
-        }
-
-        .image-card img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .image-number {
-            text-align: center;
-            padding: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            color: #555;
-        }
-
-        /* Badge de seleção */
-        .image-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--selected-color);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Galeria Interativa (1-75)</h1>
-
-    <div class="controls">
-        <input type="number" id="searchNumber" placeholder="Digite um número (1-75)..." min="1" max="75">
-    </div>
-
-    <div class="grid-container" id="gallery">
-        </div>
-
-    <script>
-        const gallery = document.getElementById('gallery');
-        const searchInput = document.getElementById('searchNumber');
-
-        // Gera as 75 imagens
-        for (let i = 1; i <= 75; i++) {
-            const card = document.createElement('div');
-            card.className = 'image-card';
-            card.id = img-${i};
-            card.onclick = () => card.classList.toggle('selected');
-
-            // Usando o Lorem Picsum para imagens de exemplo
-            card.innerHTML = `
-                <img src="https://picsum.photos/200?random=${i}" alt="Imagem ${i}">
-                <div class="image-number">Nº ${i}</div>
-            `;
-            
-            gallery.appendChild(card);
-        }
-
-        // Lógica de busca/seleção por número
-        searchInput.addEventListener('input', (e) => {
-            const val = e.target.value;
-            
-            // Remove destaque de todos
-            document.querySelectorAll('.image-card').forEach(c => c.style.boxShadow = 'none');
-
-            if (val >= 1 && val <= 75) {
-                const target = document.getElementById(img-${val});
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    target.style.boxShadow = '0 0 15px #3498db';
-                    // Opcional: target.classList.add('selected'); // Se quiser que selecione ao digitar
-                }
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0.5cm;
             }
-        });
-    </script>
-</body>
-</html>
+            body {
+                background-color: white;
+      …
+[00:45, 04/03/2026] Rodrigo Installflex Servicos e Soluções: 
